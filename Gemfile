@@ -19,6 +19,16 @@ gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+group :development do
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
+end
+
+group :test do
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
