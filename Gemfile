@@ -35,6 +35,8 @@ group :test do
   gem 'database_cleaner'
   # Set up test objects in factories
   gem 'factory_girl_rails', require: false
+  # Helpful matchers for rails
+  gem 'shoulda-matchers'
   # Simple test coverage tool
   gem 'simplecov'
 end
