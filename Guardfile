@@ -62,12 +62,12 @@ guard :rspec, cmd: "rspec" do
   end
 
   # Rails config changes
-  watch(rails.spec_helper)     { rspec.spec_dir }
-  watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
-  watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
+  watch(rails.spec_helper) { rspec.spec_dir }
+  watch(rails.routes) { "#{rspec.spec_dir}/routing" }
+  watch(rails.app_controller) { "#{rspec.spec_dir}/controllers" }
 
   # Capybara features specs
-  watch(rails.view_dirs)     { |m| rspec.spec.("features/#{m[1]}") }
+  watch(rails.view_dirs) { |m| rspec.spec.("features/#{m[1]}") }
 
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
@@ -78,7 +78,7 @@ end
 
 guard "cucumber" do
   watch(%r{^features/.+\.feature$})
-  watch(%r{^features/support/.+$})          { "features" }
+  watch(%r{^features/support/.+$}) { "features" }
 
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) do |m|
     Dir[File.join("**/#{m[1]}.feature")][0] || "features"
