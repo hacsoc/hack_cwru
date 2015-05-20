@@ -7,10 +7,7 @@ Feature: Authentication
   Scenario: Sign Up
     Given I am not signed in
     When I visit "/sign_up"
-    And I fill out "name"
-    And I fill out "email"
-    And I provide a password and confirmation
-    When I click "Sign Up"
+    And I fill out the sign up form
     Then I should exist as a user
     And I should be signed in
     And I should receive a welcome email
@@ -23,6 +20,11 @@ Feature: Authentication
     And I fill out "password" with my password
     When I click "Sign In"
     Then I should be signed in
+
+  Scenario: Signing Out
+    Given I am signed in
+    When I click "Sign out"
+    Then I should be signed out
 
   Scenario: Password recovery with valid email
     Given I am not signed in
@@ -45,3 +47,5 @@ Feature: Authentication
     And I click "Submit"
     Then I should see "We did not find a user"
     And No password recovery email should be sent
+
+  Scenario: Reset password
