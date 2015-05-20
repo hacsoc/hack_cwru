@@ -20,13 +20,19 @@ gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
 group :development do
+  # Auto-run feature tests on code changes
   gem 'guard-cucumber'
+  # Auto-run specs on code changes
   gem 'guard-rspec'
 end
 
 group :test do
+  # Cucumber features for rails
   gem 'cucumber-rails', require: false
+  # Database cleaner for cucumber scenarios
   gem 'database_cleaner'
+  # Set up test objects in factories
+  gem 'factory_girl_rails', require: false
 end
 
 group :development, :test do
