@@ -1,0 +1,12 @@
+ruby:
+    enabled: true
+    config_file: .ruby-style.yml
+
+coffeescript:
+    enabled: true
+
+javascript:
+    enabled: true
+
+scss:
+    enabled: true
