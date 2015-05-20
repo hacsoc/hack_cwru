@@ -27,12 +27,16 @@ group :development do
 end
 
 group :test do
+  # Tracks coverage over time
+  gem 'coveralls', require: false
   # Cucumber features for rails
   gem 'cucumber-rails', require: false
   # Database cleaner for cucumber scenarios
   gem 'database_cleaner'
   # Set up test objects in factories
   gem 'factory_girl_rails', require: false
+  # Simple test coverage tool
+  gem 'simplecov'
 end
 
 group :development, :test do
