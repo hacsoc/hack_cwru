@@ -31,6 +31,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Set some configurations for url helper methods. Used in mailer tests.
+  routes.default_url_options = { host: 'localhost', port: 3000 }
+
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
 
