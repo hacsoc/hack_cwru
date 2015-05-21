@@ -20,7 +20,7 @@ Feature: Authentication
 
   Scenario: Signing Out
     Given I am signed in
-    When I click "Sign out"
+    When I click the link "Sign out"
     Then I should be signed out
 
   Scenario: Password recovery with valid email

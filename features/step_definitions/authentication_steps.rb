@@ -42,3 +42,7 @@ end
 Then(/^I should be signed in$/) do
   expect_user_to_be_signed_in
 end
+
+Then(/^I should be signed out$/) do
+  expect_user_to_be_signed_out
+end

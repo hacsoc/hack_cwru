@@ -10,3 +10,7 @@ end
 When(/^I visit "(.*)"$/) do |path|
   visit path
 end
+
+When(/^I click the link "(.*)"$/) do |text|
+  click_link text
+end
