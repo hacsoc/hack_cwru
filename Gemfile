@@ -8,12 +8,14 @@ gem 'clearance'
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use LESS stylesheets
+gem 'less-rails'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+# V8 JavaScript interpreter in Ruby
+gem 'therubyracer'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
