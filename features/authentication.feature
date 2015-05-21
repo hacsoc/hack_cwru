@@ -14,11 +14,8 @@ Feature: Authentication
 
   Scenario: Signing In
     Given I am not signed in
-    And A user exists
-    When I visit "/sign_in"
-    And I fill out "email" with my email
-    And I fill out "password" with my password
-    When I click "Sign In"
+    And A user exists with some password
+    When I sign in
     Then I should be signed in
 
   Scenario: Signing Out

@@ -1,3 +1,10 @@
+Given(/^A user exists with some password$/) do
+  @user = FactoryGirl.build(:user)
+  @password = @user.password
+  expect(@password).to_not be nil
+  expect(@user.save).to be true
+end
+
 When(/^I fill out the sign up form$/) do
   @old_count = User.count
 
@@ -13,6 +20,17 @@ When(/^I fill out the sign up form$/) do
   end
 
   click_button "Sign up"
+end
+
+When(/^I sign in$/) do
+  visit '/sign_in'
+
+  within '.sign-in' do
+    fill_in 'session_email', with: @user.email
+    fill_in 'session_password', with: @password
+  end
+
+  click_button 'Sign in'
 end
 
 Then(/^I should exist as a user$/) do
