@@ -1,13 +1,14 @@
 language: ruby
 cache: bundler
 rvm:
-    - 2.2.2
-
+  - 2.2.2
 before_script:
-    - cp config/database.yml.travis config/database.yml
-    - psql -c 'create database travis_ci_test' -U postgres
-    - rake db:migrate
-
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test' -U postgres
+  - rake db:migrate
 script:
-    - rake
-    - rake coveralls:push
+  - rake
+  - rake coveralls:push
+notifications:
+  slack:
+    secure: NR1yhhIp6uIjKJJ3CTH85TLWWeWVoSTksEMxYkuer0YtzHuNvQlA0SdR5nbdbrJeVgF9mEy3+J9KrQsQ/DPz9SCIMmfnBFEKNkVjoriN2MS0GA2It3iioYM+L8GREbUIr8ZXRxSCLj1kcT/8DDAyDqBQlTYaylQ6lQPaMDrxX8YXiFdEn3q5bZlfOI8bPlxnaOcu1wkzIJE16Lm9kTpfzzKdIKDpa0o9gRvylXhVnAYBrF5oExGnPYN1HoZ9ZfW/pHUEHt9ajGGNaXVhLGpfT2fAt/MHU3DuKDkNkGxy/OBbnFZwe6jc/D7UmsxEtyGS8QU5AHLYDgR25s2nIe6d8Y980rD1D5H7/OSXEDXQZ8aBWhc+gUBSrjHLeXsztzL+nVnvUeOyRwJToggcWDJieGWdbqBBM2kDK6V/PI6lknUSzzM9XX9EEs5+sQIkLh26+M1Jqvud1Hgndvr2FwRterPJy3nFMWMyU3F9U9ut+P0sjNW9CEUrBJoY7UWWhAyELpJTRMhtwKAVPwua4KILg4duW4xYxUTACelL9gVCTggo+GBMSlMYt351CE5xFtC+qGgyoespcj1kQEledkXK4vMDaWKAMQCRVwrrl9skB+nyICC+FEA1/J6T0cfBCPoqn4v2sh+ZGdf46QqBWGlbt41T7xX+7aOH5ohSXROlfbg=
