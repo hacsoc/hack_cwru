@@ -67,15 +67,16 @@ RSpec.describe 'Users', type: :request do
         end
 
         it 'returns a list of errors' do
-          expect(json.empty?).to be false
+          # one error for :name, :institution, :email, :password
+          expect(json.size).to be 4
         end
 
         it 'returns details about the errors' do
           # In this example, email and password (among others) are missing,
           # so some of the errors relate to those attributes
-          expect(json['email'].include?('is invalid')).to be true
-          expect(json['email'].include?("can't be blank")).to be true
-          expect(json['password'].include?("can't be blank")).to be true
+          expect(json['email']).to include 'is invalid'
+          expect(json['email']).to include "can't be blank"
+          expect(json['password']).to include "can't be blank"
         end
       end
     end
@@ -117,9 +118,107 @@ RSpec.describe 'Users', type: :request do
     end
 
     describe 'PUT' do
+      context 'with a valid id' do
+        before do
+          @old_name = @user.name
+          @old_institution = @user.institution
+          @old_updated_at = @user.updated_at
+          put "/users/#{@user.id}.json", user: params
+        end
+
+        context 'with valid params' do
+          let(:params) { {name: 'new name', institution: 'new institution'} }
+          before { @user.reload }
+
+          it 'returns 200' do
+            expect(response).to be_success
+          end
+
+          it 'returns the user as JSON' do
+            expect(json['id']).to eq @user.id
+            expect(json['name']).to eq @user.name
+            expect(json['institution']).to eq @user.institution
+            expect(json['email']).to eq @user.email
+            expect(json['created_at']).to eq @user.created_at.iso8601(3)
+            expect(json['updated_at']).to eq @user.updated_at.iso8601(3)
+          end
+
+          it 'updates the user' do
+            expect(@user.updated_at).to be > @old_updated_at
+            expect(@user.name).to_not eq @old_name
+            expect(@user.institution).to_not eq @old_institution
+          end
+        end
+
+        context 'with invalid params' do
+          let(:params) { {name: '', institution: ''} }
+
+          it 'returns unprocessable entity' do
+            expect(response.status).to eq 422
+          end
+
+          it 'returns a list of errors' do
+            # one error for :name, :institution
+            expect(json.size).to be 2
+          end
+
+          it 'returns details about the errors' do
+            expect(json['name']).to include "can't be blank"
+            expect(json['institution']).to include "can't be blank"
+          end
+
+          it 'does not update the user' do
+            @user.reload
+            expect(@user.updated_at).to eq @old_updated_at
+            expect(@user.name).to eq @old_name
+            expect(@user.institution).to eq @old_institution
+          end
+        end
+      end
+
+      context 'with an invalid id' do
+        before { put "/users/#{User.count + 1}.json" }
+
+        it 'returns 404' do
+          expect(response.status).to eq 404
+        end
+      end
     end
 
     describe 'DELETE' do
+      before { @old_count = User.count }
+
+      context 'with a valid id' do
+        before { delete "/users/#{@user.id}.json" }
+
+        it 'returns success' do
+          expect(response).to be_success
+        end
+
+        it 'returns no content' do
+          expect{json}.to raise_error JSON::ParserError
+        end
+
+        it 'destroys the user' do
+          expect(User.count).to eq (@old_count - 1)
+        end
+      end
+
+      context 'with an invalid id' do
+        before { delete "/users/#{User.count + 1}.json" }
+
+        it 'returns 404' do
+          expect(response.status).to eq 404
+        end
+
+        it 'returns no content' do
+          expect{json}.to raise_error JSON::ParserError
+        end
+
+        it 'does not destroy a user' do
+          expect(User.count).to eq @old_count
+        end
+      end
     end
   end
 end
