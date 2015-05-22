@@ -23,14 +23,7 @@ When(/^I fill out the sign up form$/) do
 end
 
 When(/^I sign in$/) do
-  visit '/sign_in'
-
-  within '.sign-in' do
-    fill_in 'session_email', with: @user.email
-    fill_in 'session_password', with: @password
-  end
-
-  click_button 'Sign in'
+  sign_in_with(@user.email, @password)
 end
 
 Then(/^I should exist as a user$/) do

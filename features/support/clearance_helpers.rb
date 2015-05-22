@@ -22,13 +22,6 @@ module ClearanceHelpers
     click_button I18n.t("layouts.application.sign_out")
   end
 
-  def sign_up_with(email, password)
-    visit sign_up_path
-    fill_in "user_email", with: email
-    fill_in "user_password", with: password
-    click_button I18n.t("helpers.submit.user.create")
-  end
-
   def expect_user_to_be_signed_in
     visit root_path
     expect(page).to have_content I18n.t("layouts.application.sign_out")
