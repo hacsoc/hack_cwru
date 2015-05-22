@@ -14,3 +14,6 @@
 
 # Ignore test coverage
 /coverage
+
+# Ignore swaps
+*.swp
