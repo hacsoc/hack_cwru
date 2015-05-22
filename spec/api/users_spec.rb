@@ -122,9 +122,4 @@ RSpec.describe 'Users', type: :request do
     describe 'DELETE' do
     end
   end
-
-  describe '/users/:id/edit' do
-    describe 'GET' do
-    end
-  end
 end
