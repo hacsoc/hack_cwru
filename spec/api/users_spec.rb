@@ -33,6 +33,51 @@ RSpec.describe 'Users', type: :request do
     end
 
     describe 'POST' do
+      context 'with valid data' do
+        before do
+          @old_count = User.count
+          @attributes = FactoryGirl.attributes_for(:user)
+          post '/users.json', user: @attributes
+        end
+
+        it 'returns created' do
+          expect(response.status).to eq 201
+        end
+
+        it 'creates a user record' do
+          expect(User.count).to eq (@old_count + 1)
+        end
+
+        it 'returns the created user as json' do
+          expect(json['name']).to eq @attributes[:name]
+          expect(json['email']).to eq @attributes[:email]
+          # id, created_at and update_at are also returned in the JSON,
+          # but we have no way to know what those values should be in this test
+          expect(json['id']).to_not be nil
+          expect(json['created_at']).to_not be nil
+          expect(json['updated_at']).to_not be nil
+        end
+      end
+
+      context 'with invalid data' do
+        before { post '/users.json', user: User.new.attributes }
+
+        it 'returns unprocessable entity' do
+          expect(response.status).to eq 422
+        end
+
+        it 'returns a list of errors' do
+          expect(json.empty?).to be false
+        end
+
+        it 'returns details about the errors' do
+          # In this example, email and password (among others) are missing,
+          # so some of the errors relate to those attributes
+          expect(json['email'].include?('is invalid')).to be true
+          expect(json['email'].include?("can't be blank")).to be true
+          expect(json['password'].include?("can't be blank")).to be true
+        end
+      end
     end
   end
 
