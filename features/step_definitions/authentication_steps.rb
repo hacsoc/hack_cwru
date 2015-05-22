@@ -5,6 +5,10 @@ Given(/^A user exists with some password$/) do
   expect(@user.save).to be true
 end
 
+Given(/^I have forgotten my password$/) do
+  # Nothing to do here. Just makes the scenario read better.
+end
+
 When(/^I fill out the sign up form$/) do
   @old_count = User.count
 
@@ -26,6 +30,21 @@ When(/^I sign in$/) do
   sign_in_with(@user.email, @password)
 end
 
+When(/^I give an? ((?:in)?valid) email to password recovery$/) do |status|
+  @email =
+    if status == 'valid'
+      User.first.try(:email) || FactoryGirl.create(:user).email
+    else
+      FactoryGirl.build(:user).email
+    end
+
+  within '.password-reset' do
+    fill_in 'password_email', with: @email
+  end
+
+  click_button 'Reset password'
+end
+
 Then(/^I should exist as a user$/) do
   expect(User.count).to eq (@old_count + 1)
   @created_user = User.find_by(email: @new_user.email)
@@ -45,4 +64,15 @@ Then(/^I should receive a welcome email$/) do
   mail = ActionMailer::Base.deliveries.first
   expect(mail.to).to eq [@new_user.email]
   expect(mail.subject).to eq 'Welcome to HackCWRU!'
+end
+
+Then(/^A password recovery email should be sent to that email$/) do
+  expect(ActionMailer::Base.deliveries.count).to be 1
+  mail = ActionMailer::Base.deliveries.first
+  expect(mail.to).to eq [@email]
+  expect(mail.subject).to eq 'Change your password'
+end
+
+Then(/^No password recovery email should be sent$/) do
+  expect(ActionMailer::Base.deliveries.count).to be 0
 end

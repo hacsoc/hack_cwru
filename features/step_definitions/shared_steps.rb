@@ -14,3 +14,7 @@ end
 When(/^I click the link "(.*)"$/) do |text|
   click_link text
 end
+
+Then(/^I should see "(.*)"$/) do |content|
+  expect(page).to have_content content
+end

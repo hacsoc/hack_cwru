@@ -27,22 +27,18 @@ Feature: Authentication
     Given I am not signed in
     And I have forgotten my password
     And I visit "/sign_in"
-    When I click "Forgot Password"
-    Then I should see "Password Recovery"
-    When I fill out "email" with a valid email
-    And I click "Submit"
-    Then I should see "A recovery email was sent to"
-    And A password recovery email should be sent to that email
+    When I click the link "Forgot password?"
+    Then I should see "Reset your password"
+    When I give a valid email to password recovery
+    Then A password recovery email should be sent to that email
 
   Scenario: Password recovery with invalid email
     Given I am not signed in
     And I have forgotten my password
     And I visit "/sign_in"
-    When I click "Forgot Password"
-    Then I should see "Password Recovery"
-    When I fill out "email" with an invalid email
-    And I click "Submit"
-    Then I should see "We did not find a user"
-    And No password recovery email should be sent
+    When I click the link "Forgot password?"
+    Then I should see "Reset your password"
+    When I give an invalid email to password recovery
+    Then No password recovery email should be sent
 
   Scenario: Reset password
