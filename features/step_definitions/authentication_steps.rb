@@ -46,3 +46,10 @@ end
 Then(/^I should be signed out$/) do
   expect_user_to_be_signed_out
 end
+
+Then(/^I should receive a welcome email$/) do
+  expect(ActionMailer::Base.deliveries.count).to eq 1
+  mail = ActionMailer::Base.deliveries.first
+  expect(mail.to).to eq [@new_user.email]
+  expect(mail.subject).to eq 'Welcome to HackCWRU!'
+end
