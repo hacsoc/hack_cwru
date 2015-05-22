@@ -3,6 +3,33 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   describe '/users' do
     describe 'GET' do
+      before do
+        @users = FactoryGirl.create_list(:user, 2)
+        get '/users.json'
+      end
+
+      it 'returns 200' do
+        expect(response).to be_success
+      end
+
+      it 'returns a list of users' do
+        expect(json.length).to eq @users.length
+      end
+
+      it 'returns some public attributes about the users' do
+        json.each_with_index do |data, index|
+          user = @users[index]
+          expect(data['id']).to eq user.id
+          expect(data['name']).to eq user.name
+          expect(data['institution']).to eq user.institution
+        end
+      end
+
+      it 'returns a url for each user' do
+        json.each_with_index do |data, index|
+          expect(data['url']).to eq user_url(@users[index], format: :json)
+        end
+      end
     end
 
     describe 'POST' do
