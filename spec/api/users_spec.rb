@@ -170,7 +170,7 @@ RSpec.describe 'Users', type: :request do
 
           it 'does not update the user' do
             @user.reload
-            expect(@user.updated_at).to eq @old_updated_at
+            expect(@user.updated_at.round).to eq @old_updated_at.round
             expect(@user.name).to eq @old_name
             expect(@user.institution).to eq @old_institution
           end
