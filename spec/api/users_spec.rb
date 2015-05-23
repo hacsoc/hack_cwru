@@ -4,6 +4,7 @@ RSpec.describe 'Users', type: :request do
   describe '/users' do
     describe 'GET' do
       before do
+        User.destroy_all
         @users = FactoryGirl.create_list(:user, 2)
         get '/users.json'
       end
