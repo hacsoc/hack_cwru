@@ -127,7 +127,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         context 'with valid params' do
-          let(:params) { {name: 'new name', institution: 'new institution'} }
+          let(:params) { { name: 'new name', institution: 'new institution' } }
           before { @user.reload }
 
           it 'returns 200' do
@@ -151,7 +151,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         context 'with invalid params' do
-          let(:params) { {name: '', institution: ''} }
+          let(:params) { { name: '', institution: '' } }
 
           it 'returns unprocessable entity' do
             expect(response.status).to eq 422
@@ -196,7 +196,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         it 'returns no content' do
-          expect{json}.to raise_error JSON::ParserError
+          expect { json }.to raise_error JSON::ParserError
         end
 
         it 'destroys the user' do
@@ -212,7 +212,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         it 'returns no content' do
-          expect{json}.to raise_error JSON::ParserError
+          expect { json }.to raise_error JSON::ParserError
         end
 
         it 'does not destroy a user' do
