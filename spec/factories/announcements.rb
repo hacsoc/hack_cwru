@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :announcment do
+  factory :announcement do
   end
 end
