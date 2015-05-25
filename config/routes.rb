@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :announcements
+
   resources :users
   root 'users#index' # for now
 
