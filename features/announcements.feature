@@ -8,7 +8,7 @@ Feature: Announcements
   Background:
     Given I am signed in
 
-  Scenario: View annoucements list
+  Scenario: View announcements list
     Given There are 10 announcements
     When I visit "/announcements"
     Then I should see 10 announcements
@@ -20,9 +20,9 @@ Feature: Announcements
     Then I should see that announcement
 
   Scenario: View an announcement from the list
-    Given An annoucement exists
+    Given An announcement exists
     When I visit "/announcements"
-    And I click on a random annoucementt
+    And I click on a random announcement
     Then I should see that announcement
 
   Scenario: Create an announcement
@@ -32,7 +32,7 @@ Feature: Announcements
     Then There should be a new announcement
     And I should see that announcement
 
-  Scenario: Update an annoucement
+  Scenario: Update an announcement
     Given I am staff
     And An announcement exists
     When I visit that announcement's edit page
@@ -52,7 +52,7 @@ Feature: Announcements
 
   Scenario: Non-staff cannot update announcement
     Given I am not staff
-    And An annoucement exists
+    And An announcement exists
     When I visit that announcement's edit page
     Then I should be denied access
 
