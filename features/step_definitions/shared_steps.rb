@@ -7,6 +7,14 @@ Given(/^I am signed in$/) do
   sign_in
 end
 
+Given(/^I am staff$/) do
+  expect(@user.update({staff: true})).to be true
+end
+
+Given(/^I am not staff$/) do
+  expect(@user.update({staff: false})).to be true
+end
+
 When(/^I visit "(.*)"$/) do |path|
   visit path
 end

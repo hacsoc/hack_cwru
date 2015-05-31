@@ -6,9 +6,9 @@ module ClearanceHelpers
   end
 
   def sign_in
-    password = "password"
-    user = FactoryGirl.create(:user, password: password)
-    sign_in_with user.email, password
+    password = "SecurePassw0rd"
+    @user = FactoryGirl.create(:user, password: password)
+    sign_in_with @user.email, password
   end
 
   def sign_in_with(email, password)
