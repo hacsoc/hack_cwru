@@ -57,7 +57,7 @@ guard :rspec, cmd: "rspec", all_on_start: true do
     [
       rspec.spec.("routing/#{m[1]}_routing"),
       rspec.spec.("controllers/#{m[1]}_controller"),
-      rspec.spec.("acceptance/#{m[1]}")
+      rspec.spec.("api/#{m[1]}")
     ]
   end
 
@@ -66,14 +66,8 @@ guard :rspec, cmd: "rspec", all_on_start: true do
   watch(rails.routes) { "#{rspec.spec_dir}/routing" }
   watch(rails.app_controller) { "#{rspec.spec_dir}/controllers" }
 
-  # Capybara features specs
-  watch(rails.view_dirs) { |m| rspec.spec.("features/#{m[1]}") }
-
-  # Turnip features and steps
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
-    Dir[File.join("**/#{m[1]}.feature")][0] || "spec/acceptance"
-  end
+  # API specs
+  watch(%r{^spec/api/(.+)\.rb$})
 end
 
 guard "cucumber" do
