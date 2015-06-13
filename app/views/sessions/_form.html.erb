@@ -1,0 +1,21 @@
+<%= form_for :session, url: session_path, html: { class: 'form-horizontal' } do |f| %>
+  <div class="form-group">
+    <%= f.label :email, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-3">
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-3">
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="actions col-sm-offset-1">
+    <%= f.submit 'Sign in', class: 'btn btn-md btn-primary' %>
+    <%= link_to 'Sign up', sign_up_path %>
+    <%= link_to 'Forgot password?', new_password_path %>
+  </div>
+<% end %>
