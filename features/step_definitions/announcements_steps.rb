@@ -36,6 +36,23 @@ When(/^I click on a random announcement$/) do
   show_link.click
 end
 
+When(/^I fill out the announcement form$/) do
+  @announcement = FactoryGirl.build(:announcement)
+  @old_count = Announcement.count
+
+  within 'form' do
+    [:title, :content].each do |attr|
+      fill_in "announcement_#{attr}", with: @announcement.send(attr)
+    end
+
+    find('.actions input[type="submit"]').click
+  end
+end
+
+Then(/^There should be a new announcement$/) do
+  expect(Announcement.count).to be (@old_count + 1)
+end
+
 Then(/^I should see that announcement$/) do
   expect(page).to have_content @announcement.title
   expect(page).to have_content @announcement.content
