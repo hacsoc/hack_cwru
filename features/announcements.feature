@@ -36,7 +36,7 @@ Feature: Announcements
     Given I am staff
     And An announcement exists
     When I visit that announcement's edit page
-    And I change its title
+    And I change the announcement's title
     Then That announcement should have the new title
     And I should see that announcement
 
